@@ -1,7 +1,6 @@
 var weather = require('weather-js'),
 	_ = require('underscore'),
-	fast_bindall = require('fast_bindall')
-	async = require('async');
+	fast_bindall = require('fast_bindall');
 
 var Weather = function(options) {
 	_.extend(this, options);

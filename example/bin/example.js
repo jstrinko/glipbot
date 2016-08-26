@@ -1,5 +1,8 @@
 var program = require('commander'), 
 	Bot = require('../../lib/bot'),
+	Stocks = require('../../handlers/stocks'),
+	Beer = require('../../handlers/beer'),
+	Lists = require('../../handlers/lists'),
 	Weather = require('../../handlers/weather');
 
 // botty@glip.com/Botty888
@@ -16,4 +19,7 @@ var bot = new Bot({
 	password: program.password
 });
 bot.use(Weather);
+bot.use(Stocks);
+bot.use(Beer);
+bot.use(Lists, { path: process.env.HOME + '/lists/' });
 bot.start();
