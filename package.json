@@ -5,6 +5,12 @@
 		"underscore": "^1.8.3",
 		"fast_bindall": "^0.0.1",
 		"date_utilities": "^0.0.1",
-		"sbot": "^0.0.1"
+		"sbot": "^0.0.1",
+		"commander": "^2.9.0",
+		"moment": "^2.14.1",
+		"moment-timezone": "^0.5.5",
+		"async": "^2.0.1",
+		"underscore": "^3.5.2",
+		"weather-js": "^1.0.2"
 	}
 }
