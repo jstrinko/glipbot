@@ -13,10 +13,12 @@ var Stocks = function(options) {
 };
 
 _.extend(Stocks.prototype, {
+	name: 'Stock Ticker Lookup',
+	help_text: 'Purpose: Look at a stock quote\nUsage: !stock [symbol 1] [symbol 2] ... [symbol n]',
 	handle_message: function(type, data) {
-		if (type === this.bot.type_ids.TYPE_ID_POST) {
+		if (type === this.bot.type_ids.TYPE_ID_POST && data.text) {
 			var text = data.text;
-			var test = data.text.match(/^\!stock (.*?)$/i);
+			var test = text.match(/^\!stock (.*?)$/i);
 			if (test && test.length > 0) {
 				var symbol = test[1];
 				var self = this;
@@ -24,15 +26,21 @@ _.extend(Stocks.prototype, {
 				var self = this;
 				this.sbot.fetch_object(url, {}, function(error, result) {
 					if (error || !result || !result.query || !result.query.count > 0) {
+						console.warn(error);
 						return self.bot.post(data.group_id, "Unable to find symbol: " + symbol);
 					}
-					var groups = result.query.results.quote.map(function(quote) {
-						return "**" + quote.symbol.toUpperCase() + '** - ' + quote.Name + "\n**" + quote.Bid + " " + quote.Currency + "** - " + quote.Change_PercentChange;
-					});
-					return self.bot.post(data.group_id, groups.join("\n\n"));
+					var text = _.isArray(result.query.results.quote) ? 
+						result.query.results.quote.map(function(quote) {
+							return self.build_text(quote);
+						}).join("\n\n") : 
+						self.build_text(result.query.results.quote);
+					return self.bot.post(data.group_id, text);
 				});
 			}
 		}
+	},
+	build_text: function(quote) {
+		return "**" + quote.symbol.toUpperCase() + '** - ' + quote.Name + "\n**" + quote.Bid + " " + quote.Currency + "** " + quote.Change_PercentChange + " Volume: " + quote.Volume.toLocaleString();
 	}
 });
 

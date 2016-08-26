@@ -3,6 +3,8 @@ var program = require('commander'),
 	Stocks = require('../../handlers/stocks'),
 	Beer = require('../../handlers/beer'),
 	Lists = require('../../handlers/lists'),
+	Help = require('../../handlers/help'),
+	Reminder = require('../../handlers/event_reminder'),
 	Weather = require('../../handlers/weather');
 
 // botty@glip.com/Botty888
@@ -22,4 +24,6 @@ bot.use(Weather);
 bot.use(Stocks);
 bot.use(Beer);
 bot.use(Lists, { path: process.env.HOME + '/lists/' });
+bot.use(Help);
+bot.use(Reminder);
 bot.start();

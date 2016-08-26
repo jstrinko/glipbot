@@ -13,10 +13,12 @@ var Beer = function(options) {
 };
 
 _.extend(Beer.prototype, {
+	name: 'Beer Lookup',
+	help_text: 'Purpose: Learn about beer\nUsage: !beer [name of a beer]',
 	handle_message: function(type, data) {
-		if (type === this.bot.type_ids.TYPE_ID_POST) {
+		if (type === this.bot.type_ids.TYPE_ID_POST && data.text) {
 			var text = data.text;
-			var test = data.text.match(/^\!beer (.*?)$/i);
+			var test = text.match(/^\!beer (.*?)$/i);
 			if (test && test.length > 0) {
 				var beer = test[1];
 				var self = this;

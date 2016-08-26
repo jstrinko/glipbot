@@ -26,10 +26,12 @@ var Lists = function(options) {
 };
 
 _.extend(Lists.prototype, {
+	name: 'List Manager',
+	help_text: 'Purpose: Manage lists on Glip\nUsage: see "!list help" for full usage', 
 	handle_message: function(type, data) {
-		if (type === this.bot.type_ids.TYPE_ID_POST) {
+		if (type === this.bot.type_ids.TYPE_ID_POST && data.text) {
 			var text = data.text;
-			var test = data.text.match(/^\!list (.*?)$/i);
+			var test = text.match(/^\!list (.*?)$/i);
 			if (test && test.length > 0) {
 				var args = test[1];
 				var parts = args.split(/\s/);
@@ -69,7 +71,9 @@ _.extend(Lists.prototype, {
 		}
 	},
 	show_all_lists: function(data) {
-		return this.bot.post(data.group_id, "Available Lists:[code]" + Object.keys(this.lists).join("\n"));
+		return this.bot.post(data.group_id, "**Available Lists:**[code]" + (
+			Object.keys(this.lists).length ? Object.keys(this.lists).join("\n") : 'No lists yet - add one!'
+		));
 	},
 	dump_list: function(data, listname) {
 		if (!this.lists[listname]) {
@@ -122,7 +126,7 @@ _.extend(Lists.prototype, {
 	show_help: function(data) {
 		this.bot.post(
 			data.group_id, 
-			"Usage: [code]" + 
+			"**Usage:** [code]" + 
 			"!list help - show this help" + 
 			"\n!list ls|showall|list - display all lists" + 
 			"\n!list [listname] - dump entire list" + 
@@ -130,7 +134,7 @@ _.extend(Lists.prototype, {
 			"\n!list [listname] random - show random item from list" +
 			"\n!list [listname] add [data] - add item to list" + 
 			"\n!list [listname] remove [number] - remove item from list" + 
-			"\n!list [listname] delete - delete the list USE WITH CAUTION"
+			"\n!list [listname] delete - delete the list USE WITH CAUTION[/code]"
 		);
 	},
 	delete_list: function(data, listname) {

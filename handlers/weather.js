@@ -12,10 +12,12 @@ var Weather = function(options) {
 };
 
 _.extend(Weather.prototype, {
+	name: 'Weather',
+	help_text: 'Purpose: Look up weather\nUsage: !weather [zip code|city]',
 	handle_message: function(type, data) {
-		if (type === this.bot.type_ids.TYPE_ID_POST) {
+		if (type === this.bot.type_ids.TYPE_ID_POST && data.text) {
 			var text = data.text;
-			var test = data.text.match(/^\!weather (.*?)$/i);
+			var test = text.match(/^\!weather (.*?)$/i);
 			if (test && test.length > 0) {
 				var location = test[1];
 				var self = this;
