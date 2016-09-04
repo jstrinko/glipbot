@@ -5,7 +5,7 @@ var _ = require('underscore'),
 var Beer = function(options) {
 	_.extend(this, options);
 	fast_bindall(this);
-	if (!this.bot) { 
+	if (!this.bot) {
 		throw "Handler requires bot";
 	}
 	this.bot.on('message', this.handle_message);
@@ -16,7 +16,7 @@ _.extend(Beer.prototype, {
 	name: 'Beer Lookup',
 	help_text: 'Purpose: Learn about beer\nUsage: !beer [name of a beer]',
 	handle_message: function(type, data) {
-		if (type === this.bot.type_ids.TYPE_ID_POST && data.text) {
+		if (type === this.bot.type_ids.TYPE_ID_POST && data.text && !data.deactivated) {
 			var text = data.text;
 			var test = text.match(/^\!beer (.*?)$/i);
 			if (test && test.length > 0) {

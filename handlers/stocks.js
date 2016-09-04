@@ -5,7 +5,7 @@ var _ = require('underscore'),
 var Stocks = function(options) {
 	_.extend(this, options);
 	fast_bindall(this);
-	if (!this.bot) { 
+	if (!this.bot) {
 		throw "Handler requires bot";
 	}
 	this.bot.on('message', this.handle_message);
@@ -16,7 +16,7 @@ _.extend(Stocks.prototype, {
 	name: 'Stock Ticker Lookup',
 	help_text: 'Purpose: Look at a stock quote\nUsage: !stock [symbol 1] [symbol 2] ... [symbol n]',
 	handle_message: function(type, data) {
-		if (type === this.bot.type_ids.TYPE_ID_POST && data.text) {
+		if (type === this.bot.type_ids.TYPE_ID_POST && data.text && !data.deactivated) {
 			var text = data.text;
 			var test = text.match(/^\!stock (.*?)$/i);
 			if (test && test.length > 0) {
@@ -29,10 +29,10 @@ _.extend(Stocks.prototype, {
 						console.warn(error);
 						return self.bot.post(data.group_id, "Unable to find symbol: " + symbol);
 					}
-					var text = _.isArray(result.query.results.quote) ? 
+					var text = _.isArray(result.query.results.quote) ?
 						result.query.results.quote.map(function(quote) {
 							return self.build_text(quote);
-						}).join("\n\n") : 
+						}).join("\n\n") :
 						self.build_text(result.query.results.quote);
 					return self.bot.post(data.group_id, text);
 				});

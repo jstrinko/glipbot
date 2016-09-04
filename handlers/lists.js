@@ -7,7 +7,7 @@ var _ = require('underscore'),
 var Lists = function(options) {
 	_.extend(this, options);
 	fast_bindall(this);
-	if (!this.bot) { 
+	if (!this.bot) {
 		throw "Handler requires bot";
 	}
 	if (!this.path) {
@@ -27,9 +27,9 @@ var Lists = function(options) {
 
 _.extend(Lists.prototype, {
 	name: 'List Manager',
-	help_text: 'Purpose: Manage lists on Glip\nUsage: see "!list help" for full usage', 
+	help_text: 'Purpose: Manage lists on Glip\nUsage: see "!list help" for full usage',
 	handle_message: function(type, data) {
-		if (type === this.bot.type_ids.TYPE_ID_POST && data.text) {
+		if (type === this.bot.type_ids.TYPE_ID_POST && data.text && !data.deactivated) {
 			var text = data.text;
 			var test = text.match(/^\!list (.*?)$/i);
 			if (test && test.length > 0) {
@@ -89,7 +89,7 @@ _.extend(Lists.prototype, {
 		this.lists[listname].push(new_line);
 		var contents = this.lists[listname].join("\n");
 		fs.writeFileSync(this.path + listname, contents);
-		return this.bot.post(data.group_id, "New item added to list: " + this.lists[listname].length + ") " + new_line);		
+		return this.bot.post(data.group_id, "New item added to list: " + this.lists[listname].length + ") " + new_line);
 	},
 	remove: function(data, listname, line) {
 		if (!this.lists[listname]) {
@@ -102,7 +102,7 @@ _.extend(Lists.prototype, {
 		var removed = this.lists[listname].splice(line, 1);
 		var contents = this.lists[listname].join("\n");
 		fs.writeFileSync(this.path + listname, contents);
-		return this.bot.post(data.group_id, "Item removed from list: " + removed[0]);		
+		return this.bot.post(data.group_id, "Item removed from list: " + removed[0]);
 	},
 	post_random: function(data, listname) {
 		if (!this.lists[listname]) {
@@ -125,15 +125,15 @@ _.extend(Lists.prototype, {
 	},
 	show_help: function(data) {
 		this.bot.post(
-			data.group_id, 
-			"**Usage:** [code]" + 
-			"!list help - show this help" + 
-			"\n!list ls|showall|list - display all lists" + 
-			"\n!list [listname] - dump entire list" + 
-			"\n!list [listname] [number] - show item from list" + 
+			data.group_id,
+			"**Usage:** [code]" +
+			"!list help - show this help" +
+			"\n!list ls|showall|list - display all lists" +
+			"\n!list [listname] - dump entire list" +
+			"\n!list [listname] [number] - show item from list" +
 			"\n!list [listname] random - show random item from list" +
-			"\n!list [listname] add [data] - add item to list" + 
-			"\n!list [listname] remove [number] - remove item from list" + 
+			"\n!list [listname] add [data] - add item to list" +
+			"\n!list [listname] remove [number] - remove item from list" +
 			"\n!list [listname] delete - delete the list USE WITH CAUTION[/code]"
 		);
 	},
