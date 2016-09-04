@@ -5,7 +5,7 @@ var weather = require('weather-js'),
 var Weather = function(options) {
 	_.extend(this, options);
 	fast_bindall(this);
-	if (!this.bot) { 
+	if (!this.bot) {
 		throw "Handler requires bot";
 	}
 	this.bot.on('message', this.handle_message);
@@ -15,7 +15,7 @@ _.extend(Weather.prototype, {
 	name: 'Weather',
 	help_text: 'Purpose: Look up weather\nUsage: !weather [zip code|city]',
 	handle_message: function(type, data) {
-		if (type === this.bot.type_ids.TYPE_ID_POST && data.text) {
+		if (type === this.bot.type_ids.TYPE_ID_POST && data.text && !data.deactivated) {
 			var text = data.text;
 			var test = text.match(/^\!weather (.*?)$/i);
 			if (test && test.length > 0) {
