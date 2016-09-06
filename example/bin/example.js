@@ -3,6 +3,7 @@ var program = require('commander'),
 	Stocks = require('../../handlers/stocks'),
 	Beer = require('../../handlers/beer'),
 	Lists = require('../../handlers/lists'),
+	Image_Search = require('../../handlers/image-search'),
 	Help = require('../../handlers/help'),
 	Reminder = require('../../handlers/event_reminder'),
 	Weather = require('../../handlers/weather');
@@ -26,4 +27,5 @@ bot.use(Beer);
 bot.use(Lists, { path: process.env.HOME + '/lists/' });
 bot.use(Help);
 bot.use(Reminder);
+bot.use(Image_Search);
 bot.start();

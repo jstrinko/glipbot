@@ -1,16 +1,16 @@
 {
-	"name": "glipbot",
+  "name": "glipbot",
   "dependencies": {
-		"socket.io-client": "^1.4.6",
-		"underscore": "^1.8.3",
-		"fast_bindall": "^0.0.1",
-		"date_utilities": "^0.0.1",
-		"sbot": "^0.0.2",
-		"commander": "^2.9.0",
-		"moment": "^2.14.1",
-		"moment-timezone": "^0.5.5",
-		"async": "^2.0.1",
-		"underscore": "^1.8.3",
-		"weather-js": "^1.0.2"
-	}
+    "async": "^2.0.1",
+    "commander": "^2.9.0",
+    "date_utilities": "^0.0.1",
+    "fast_bindall": "^0.0.1",
+    "google-images": "^1.0.0",
+    "moment": "^2.14.1",
+    "moment-timezone": "^0.5.5",
+    "sbot": "^0.0.2",
+    "socket.io-client": "^1.4.6",
+    "underscore": "^1.8.3",
+    "weather-js": "^1.0.2"
+  }
 }
