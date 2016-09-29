@@ -20,8 +20,11 @@ _.extend(Translator.prototype, {
 			var test = text.match(/^\!translate ([a-z]+)/i);
 			if (test && test.length > 0) {
 				var language_key = test[1];
-				var translate_text = text.split('|')[1].trim();
+				var translate_text = text.split('|')[1];
 				var self = this;
+				if (!translate_text) {
+					return self.bot.post(data.group_id, "Unable to translate: Missing desired message");
+				}
 				translator.translate(translate_text, { to: language_key }, function(error, response) {
 					if (error || !response || response.length === 0) {
 						return self.bot.post(data.group_id, "Unable to translate: " + data.text);
