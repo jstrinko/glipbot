@@ -6,7 +6,8 @@ var program = require('commander'),
 	Image_Search = require('../../handlers/image-search'),
 	Help = require('../../handlers/help'),
 	Reminder = require('../../handlers/event_reminder'),
-	Weather = require('../../handlers/weather');
+	Weather = require('../../handlers/weather'),
+	Translator = require('../../handlers/translator');
 
 // botty@glip.com/Botty888
 
@@ -28,4 +29,5 @@ bot.use(Lists, { path: process.env.HOME + '/lists/' });
 bot.use(Help);
 bot.use(Reminder);
 bot.use(Image_Search);
+bot.use(Translator);
 bot.start();
