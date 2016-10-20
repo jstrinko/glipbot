@@ -5,7 +5,7 @@ Pls follow steps below to run and test the bot.
 1. Install
 
 ```javascript
-npm Install
+npm install
 ```
 
 2. Get a test account from [Glip.com](glip.com)
