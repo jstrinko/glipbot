@@ -1,5 +1,6 @@
 {
   "name": "glipbot",
+  "version": "0.0.1",
   "dependencies": {
     "async": "^2.0.1",
     "commander": "^2.9.0",
