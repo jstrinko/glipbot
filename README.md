@@ -10,7 +10,7 @@ npm install
 
 2. Get a test account from [Glip.com](glip.com)
 3. Make a ~/lists directory
-4. Translator requires a developer test key from https://tech.yandex.com/keys (stored in env under YANDEX_API_KEY)
+4. Translator requires a developer test key from https://translate.yandex.com/developers/keys (stored in env under YANDEX_API_KEY)
 5. use following command to start the bot
 
 ```javascript
